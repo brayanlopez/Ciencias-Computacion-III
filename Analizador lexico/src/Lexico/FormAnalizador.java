@@ -5,6 +5,11 @@
  */
 package Lexico;
 
+import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+
 /**
  *
  * @author estudiantes
@@ -29,7 +34,7 @@ public class FormAnalizador extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
+        BotonAnalisis = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -37,10 +42,10 @@ public class FormAnalizador extends javax.swing.JFrame {
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
-        jButton1.setText("Analisis");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        BotonAnalisis.setText("Analisis");
+        BotonAnalisis.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                BotonAnalisisActionPerformed(evt);
             }
         });
 
@@ -54,14 +59,14 @@ public class FormAnalizador extends javax.swing.JFrame {
                 .addContainerGap(30, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(BotonAnalisis)
                 .addGap(40, 40, 40))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addComponent(jButton1)
+                .addComponent(BotonAnalisis)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(30, Short.MAX_VALUE))
@@ -70,9 +75,128 @@ public class FormAnalizador extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void BotonAnalisisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonAnalisisActionPerformed
+        int cont = 1;
+        JFileChooser escoger = new JFileChooser();
+        escoger.showOpenDialog(null);
+        try {
+            Reader lectura = new BufferedReader(new FileReader(escoger.getSelectedFile()));
+            Lexico lexicos = new Lexico(lectura);
+            String result = "";
+            while (true) {
+                Tokens tokens = lexicos.yylex();
+                if (tokens == null) {
+                    result += "Final";
+                    //Resultado.setText(result);
+                    return;
+                }
+                switch (tokens) {
+                    case Linea:
+                        cont++;
+                        result += "LINEA " + cont + "\n";
+                        break;
+                    case Comillas:
+                        result += " <Comillas>\t\t" + lexicos.lexeme + "\n";
+                        break;
+                    case Cadena:
+                        result += " <Tipo de dato>\t" + lexicos.lexeme + "\n";
+                        break;
+                    case T_dato:
+
+                        result += " <Tipo de dato>\t" + lexicos.lexeme + "\n";
+                        break;
+                    case If:
+                        result += " <Reservada if>\t" + lexicos.lexeme + "\n";
+                        break;
+                    case Else:
+                        result += " <Reservada else>\t" + lexicos.lexeme + "\n";
+                        break;
+                    case Do:
+                        result += " <Reservada do>\t" + lexicos.lexeme + "\n";
+                        break;
+                    case While:
+                        result += " <Reservada while>\t" + lexicos.lexeme + "\n";
+                        break;
+                    case For:
+                        result += " <Reservada while>\t" + lexicos.lexeme + "\n";
+                        break;
+                    case Igual:
+                        result += " <Operador igual>\t" + lexicos.lexeme + "\n";
+                        break;
+                    case Suma:
+                        result += " <Operador suma>\t" + lexicos.lexeme + "\n";
+                        break;
+                    case Resta:
+                        result += " <Operador resta>\t" + lexicos.lexeme + "\n";
+                        break;
+                    case Multiplicacion:
+                        result += " <Operador multiplicacion>\t" + lexicos.lexeme + "\n";
+                        break;
+
+                    case Division:
+                        result += " <Operador division>\t" + lexicos.lexeme + "\n";
+                        break;
+                    case Op_logico:
+                        result += " <Operador logico>\t" + lexicos.lexeme + "\n";
+                        break;
+                    case Op_incremento:
+                        result += " <Operador incremento>\t" + lexicos.lexeme + "\n";
+                        break;
+                    case Op_relacional:
+                        result += " <Operador relacional>\t" + lexicos.lexeme + "\n";
+                        break;
+                    case Op_atribucion:
+                        result += " <Operador atribucion>\t" + lexicos.lexeme + "\n";
+                        break;
+                    case Op_booleano:
+                        result += " <Operador booleano>\t" + lexicos.lexeme + "\n";
+                        break;
+                    case Parentesis_a:
+                        result += " <Parentesis de apertura>\t" + lexicos.lexeme + "\n";
+                        break;
+                    case Parentesis_c:
+                        result += " <Parentesis de cierre>\t" + lexicos.lexeme + "\n";
+                        break;
+                    case Llave_a:
+                        result += " <Llave de apertura>\t" + lexicos.lexeme + "\n";
+                        break;
+                    case Llave_c:
+                        result += " <Llave de cierre>\t" + lexicos.lexeme + "\n";
+
+                        break;
+                    case Corchete_a:
+                        result += " <Corchete de apertura>\t" + lexicos.lexeme + "\n";
+                        break;
+                    case Corchete_c:
+                        result += " <Corchete de cierre>\t" + lexicos.lexeme + "\n";
+                        break;
+                    case Main:
+                        result += " <Reservada main>\t" + lexicos.lexeme + "\n";
+                        break;
+                    case P_coma:
+                        result += " <Punto y coma>\t" + lexicos.lexeme + "\n";
+                        break;
+                    case Identificador:
+                        result += " <Identificador>\t\t" + lexicos.lexeme + "\n";
+                        break;
+                    case Numero:
+                        result += " <Numero>\t\t" + lexicos.lexeme + "\n";
+                        break;
+                    case ERROR:
+                        result += " <Simbolo no definido>\n";
+                        break;
+                    default:
+                        result += " < " + lexicos.lexeme + " >\n";
+                        break;
+                }
+            }
+        } catch (FileNotFoundException ex) {
+
+            Logger.getLogger(FormAnalizador.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(FormAnalizador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_BotonAnalisisActionPerformed
 
     /**
      * @param args the command line arguments
@@ -111,7 +235,7 @@ public class FormAnalizador extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton BotonAnalisis;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
