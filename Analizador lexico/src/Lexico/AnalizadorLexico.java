@@ -14,7 +14,7 @@ import java.io.File;
 public class AnalizadorLexico {
 
     public static void main(String[] args) {
-        String camino = "D:\\Bryan\\Estudio\\Universidad\\2019-3\\Ciencias de la computacion III\\Ciencias-Computacion-III-master\\Analizador lexico\\src\\Lexico\\Analizador_Lexico.flex";
+        String camino = "C:\\Users\\estudiantes\\Downloads\\Ciencias-Computacion-III-master\\Analizador lexico\\src\\Lexico\\Analizador_Lexico.flex";
         generarLex(camino);
     }
 

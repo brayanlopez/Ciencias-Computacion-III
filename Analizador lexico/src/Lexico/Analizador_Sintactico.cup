@@ -52,7 +52,8 @@ DECLARACION ::=
     Cadena Identificador Op_atribucion Comillas Comillas P_coma |
     Cadena Identificador Igual Comillas Comillas P_coma |
     Cadena Identificador Op_atribucion Comillas Identificador Comillas P_coma |
-    Cadena Identificador Igual Comillas Identificador Comillas P_coma
+    Cadena Identificador Igual Comillas Identificador Comillas P_coma | 
+    T_dato Identificador Numeral 
 ;
 IF ::= If Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIA Llave_c
 ;

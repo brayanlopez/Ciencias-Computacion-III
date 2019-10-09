@@ -104,6 +104,14 @@ espacio=[ ,\t,\r]+
 /* Numero */
 ("(-"{D}+")")|{D}+ {lexeme=yytext(); return Numero;}
 
+
+/* Numeral */
+( "#" ) {lexeme=yytext(); return Numeral;}
+
+/* Coma */
+( "," ) {lexeme=yytext(); return Coma;}
+
 /* Error de analisis */
  . {return ERROR;}
+
 
